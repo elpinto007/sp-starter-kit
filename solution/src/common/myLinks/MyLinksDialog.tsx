@@ -7,7 +7,7 @@ import styles from './MyLinks.module.scss';
 import * as strings from 'MyLinksStrings';
 
 // import additional controls/components
-import { BaseDialog, Dialog, IDialogConfiguration, SecondaryDialogProvider } from '@microsoft/sp-dialog';
+import { BaseDialog, Dialog, IDialogConfiguration } from '@microsoft/sp-dialog';
 import {
   autobind,
   DefaultButton,
@@ -295,13 +295,12 @@ class MyLinksDialogContent extends
   @autobind
   private _getErrorMessageUrl(value: string): string {
     // validate the URL with a specific Regular Expression
-    const regEx: RegExp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+    const regEx: RegExp = /(https)?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)/;
     return(value == null || value.length === 0 || regEx.test(value) ? "" : strings.InvalidUrlError);
   }
 
   @autobind
-  private async addLink(): Promise<void> {
-
+  private addLink(): void {
     if (this.state.selectedLink != null &&
       this.state.links != null &&
       this.state.links.length > 0) {
@@ -319,8 +318,7 @@ class MyLinksDialogContent extends
   }
 
   @autobind
-  private async editLink(): Promise<void> {
-
+  private editLink(): void {
     // enable the detail panel
     this.setState({
       showDetailPanel: true,

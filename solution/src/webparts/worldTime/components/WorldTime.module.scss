@@ -8,9 +8,8 @@
 
   .description {
     @include ms-font-l;
-    @include ms-fontColor-black;
+    color: $ms-color-black;
     text-align: center;
-    font-weight: bold;
     margin-bottom: 20px;
   }
 }
